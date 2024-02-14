@@ -1,6 +1,13 @@
+import { Routes, Route } from 'react-router-dom'
+import { Login } from './pages'
+
 function App (): JSX.Element {
   return (
-    <div className="bg-red-400">App</div>
+    <>
+      <Routes>
+        <Route path="/" element={<Login />} index />
+      </Routes>
+    </>
   )
 }
 
