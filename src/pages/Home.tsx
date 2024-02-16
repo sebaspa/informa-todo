@@ -3,7 +3,7 @@ import { useAuth } from '../context'
 
 import type { Task } from '../types/task'
 
-import { createTask, getTasksByUser } from '../api/tasks'
+import { createTask, deleteTask, getTasksByUser } from '../api/tasks'
 
 import { InputText } from '../components/Form'
 
@@ -62,6 +62,15 @@ const Home = (): JSX.Element => {
     })
   }
 
+  const handleDelete = (id: number | string): void => {
+    removeTask(id).catch(console.error)
+    setTasks(tasks.filter((task) => task.id !== id))
+  }
+
+  const removeTask = async (id: number | string): Promise<void> => {
+    await deleteTask(id)
+  }
+
   return (
     <div className='container mx-auto px-4'>
       <h1>{user?.username}</h1>
@@ -91,6 +100,7 @@ const Home = (): JSX.Element => {
             <li key={task.id}>
               <h3>{task.title}</h3>
               <p>{task.description}</p>
+              <button className='bg-red-500 text-white rounded-lg px-4 py-2 w-full mt-4' onClick={() => { handleDelete(task.id) } }>Delete</button>
             </li>
           ))
         }

@@ -17,3 +17,9 @@ export const createTask = async (task: Task): Promise<Task> => {
   const data = await response.json()
   return data
 }
+
+export const deleteTask = async (id: number | string): Promise<void> => {
+  await fetch(`${import.meta.env.VITE_API_URL}/tasks/${id}`, {
+    method: 'DELETE'
+  })
+}
