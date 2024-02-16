@@ -3,7 +3,7 @@ import { useAuth } from '../context'
 
 import type { Task } from '../types/task'
 
-import { createTask, deleteTask, getTasksByUser } from '../api/tasks'
+import { createTask, deleteTask, getTasksByUser, updateTask } from '../api/tasks'
 
 import { InputText } from '../components/Form'
 
@@ -42,7 +42,11 @@ const Home = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
-    addTask().catch(console.error)
+    if (formData.id === 0) {
+      addTask().catch(console.error)
+    } else {
+      modifyTask(formData).catch(console.error)
+    }
   }
 
   const addTask = async (): Promise<void> => {
@@ -69,6 +73,22 @@ const Home = (): JSX.Element => {
 
   const removeTask = async (id: number | string): Promise<void> => {
     await deleteTask(id)
+  }
+
+  const handleEdit = (task: Task): void => {
+    setFormData(task)
+  }
+
+  const modifyTask = async (task: Task): Promise<void> => {
+    await updateTask(task)
+    setTasks(tasks.map((t) => (t.id === task.id ? task : t)))
+    setFormData({
+      id: 0,
+      title: '',
+      description: '',
+      isDone: false,
+      userId: 0
+    })
   }
 
   return (
@@ -100,6 +120,8 @@ const Home = (): JSX.Element => {
             <li key={task.id}>
               <h3>{task.title}</h3>
               <p>{task.description}</p>
+              <p>{task.isDone ? 'Completed' : 'Not completed'}</p>
+              <button className='bg-purple-500 text-white rounded-lg px-4 py-2 w-full mt-4' onClick={() => { handleEdit(task) } }>Edit</button>
               <button className='bg-red-500 text-white rounded-lg px-4 py-2 w-full mt-4' onClick={() => { handleDelete(task.id) } }>Delete</button>
             </li>
           ))

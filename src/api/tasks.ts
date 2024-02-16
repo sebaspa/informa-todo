@@ -23,3 +23,15 @@ export const deleteTask = async (id: number | string): Promise<void> => {
     method: 'DELETE'
   })
 }
+
+export const updateTask = async (task: Task): Promise<Task> => {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/tasks/${task.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(task)
+  })
+  const data = await response.json()
+  return data
+}
