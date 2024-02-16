@@ -1,4 +1,4 @@
-import users from '../mocks/users.json'
+import { users } from '../../db.json'
 import type { User } from '../types/user'
 
 export const validateUser = (email: string, password: string): User => {

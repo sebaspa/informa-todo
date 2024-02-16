@@ -1,0 +1,53 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "johndoe",
+      "password": "password",
+      "email": "johndoe@me.com"
+    },
+    {
+      "id": 2,
+      "username": "janedoe",
+      "password": "password",
+      "email": "janedoe@me.com"
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Task 1",
+      "description": "Task 1 description",
+      "isDone": true,
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "title": "Task 2",
+      "description": "Task 2 description",
+      "isDone": false,
+      "userId": 1
+    },
+    {
+      "id": 3,
+      "title": "Task 3",
+      "description": "Task 3 description",
+      "isDone": false,
+      "userId": 2
+    },
+    {
+      "id": 4,
+      "title": "Task 4",
+      "description": "Task 4 description",
+      "isDone": false,
+      "userId": 2
+    },
+    {
+      "id": "8d69cf74-947f-4143-a1f9-bf71f558ec7d",
+      "title": "Prueba",
+      "description": "Prueba",
+      "isDone": false,
+      "userId": 1
+    }
+  ]
+}
