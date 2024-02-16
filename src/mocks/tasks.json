@@ -1,0 +1,24 @@
+[
+  {
+    "uid": 1,
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Task 1",
+        "description": "Task 1 description",
+        "isDone": false
+      }
+    ]
+  },
+  {
+    "uid": 2,
+    "tasks": [
+      {
+        "id": 2,
+        "title": "Task 2",
+        "description": "Task 2 description",
+        "isDone": false
+      }
+    ]
+  }
+]

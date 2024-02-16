@@ -12,7 +12,7 @@ function App (): JSX.Element {
     if (!isLoggedIn) {
       naviate('/login')
     }
-  }, [isLoggedIn])
+  }, [isLoggedIn, naviate])
 
   return (
     <>
