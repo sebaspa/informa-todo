@@ -33,7 +33,7 @@ const Login = (): JSX.Element => {
     }).then(() => {
       setTimeout(() => {
         navigate('/')
-      }, 1300)
+      }, 300)
     }
     ).catch(console.error)
   }

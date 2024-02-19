@@ -4,12 +4,13 @@ import type { Task } from '../types/task'
 
 import { createTask, deleteTask, getTasksByUser, updateTask } from '../api/tasks'
 
-import { InputText } from '../components/Form'
 import { useAuth } from '../hooks'
 
+import { InputText } from '../components/Form'
+import { UserBar } from '../components'
+
 const Home = (): JSX.Element => {
-  const { user, logoutSession } = useAuth()
-  console.log('user', user)
+  const { user } = useAuth()
   const [tasks, setTasks] = useState<Task[]>([])
   const [formData, setFormData] = useState<Task>({
     id: 0,
@@ -21,7 +22,7 @@ const Home = (): JSX.Element => {
 
   useEffect(() => {
     const fetchTasks = async (): Promise<void> => {
-      console.log('Fetchtasks')
+      console.log(user, 'Fetchtasks')
       if (user === undefined || user === null) return
       try {
         const tasks = await getTasksByUser(user.id)
@@ -93,48 +94,45 @@ const Home = (): JSX.Element => {
     })
   }
 
-  const handleLogout = (): void => {
-    logoutSession()
-  }
-
   return (
-    <div className='container mx-auto px-4'>
-      <h1>Hola {user?.username}</h1>
-      <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' onClick={handleLogout}>Log out</button>
-      <form className='mb-4' onSubmit={handleSubmit}>
-        <InputText
-          type="text"
-          name="title"
-          label="Title"
-          value={formData.title}
-          required={true}
-          handleChange={handleInputChange}
-        />
-        <InputText
-          type="text"
-          name="description"
-          label="Description"
-          value={formData.description}
-          required={true}
-          handleChange={handleInputChange}
-        />
-        <button className='bg-purple-500 text-white rounded-lg px-4 py-2 w-full mt-4'>Add</button>
-      </form>
-      <h2 className='text-3xl font-bold mb-4'>Todo List</h2>
-      <ul>
-        {
-          tasks.map((task) => (
-            <li key={task.id}>
-              <h3>{task.title}</h3>
-              <p>{task.description}</p>
-              <p>{task.isDone ? 'Completed' : 'Not completed'}</p>
-              <button className='bg-purple-500 text-white rounded-lg px-4 py-2 w-full mt-4' onClick={() => { handleEdit(task) } }>Edit</button>
-              <button className='bg-red-500 text-white rounded-lg px-4 py-2 w-full mt-4' onClick={() => { handleDelete(task.id) } }>Delete</button>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+    <>
+      <UserBar />
+      <div className='container mx-auto px-4 mt-4'>
+        <form className='mb-4' onSubmit={handleSubmit}>
+          <InputText
+            type="text"
+            name="title"
+            label="Title"
+            value={formData.title}
+            required={true}
+            handleChange={handleInputChange}
+          />
+          <InputText
+            type="text"
+            name="description"
+            label="Description"
+            value={formData.description}
+            required={true}
+            handleChange={handleInputChange}
+          />
+          <button className='bg-purple-500 text-white rounded-lg px-4 py-2 w-full mt-4'>Add</button>
+        </form>
+        <h2 className='text-3xl font-bold mb-4'>Todo List</h2>
+        <ul>
+          {
+            tasks.map((task) => (
+              <li key={task.id}>
+                <h3>{task.title}</h3>
+                <p>{task.description}</p>
+                <p>{task.isDone ? 'Completed' : 'Not completed'}</p>
+                <button className='bg-purple-500 text-white rounded-lg px-4 py-2 w-full mt-4' onClick={() => { handleEdit(task) } }>Edit</button>
+                <button className='bg-red-500 text-white rounded-lg px-4 py-2 w-full mt-4' onClick={() => { handleDelete(task.id) } }>Delete</button>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </>
   )
 }
 
