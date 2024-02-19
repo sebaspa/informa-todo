@@ -1,32 +1,25 @@
-import { useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import { useAuth } from './context'
+import { useAuth } from './hooks'
 
 import { Home, Login } from './pages'
+import { useEffect } from 'react'
 
 function App (): JSX.Element {
+  const navigate = useNavigate()
   const { isLoggedIn } = useAuth()
-  const naviate = useNavigate()
 
   useEffect(() => {
     if (!isLoggedIn) {
-      naviate('/login')
+      navigate('/login')
     }
-  }, [isLoggedIn, naviate])
+  }, [isLoggedIn])
 
   return (
     <>
-        <Routes>
-      {
-        isLoggedIn
-          ? (
-          <Route path="/" element={<Home />} index />
-            )
-          : (
-            <Route path="/login" element={<Login />} />
-            )
-          }
-          </Routes>
+      <Routes>
+        <Route path="/" element={<Home />} index />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </>
   )
 }

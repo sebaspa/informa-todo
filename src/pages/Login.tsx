@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../context'
-
-import { validateUser } from '../utils/users'
 
 import { InputText } from '../components/Form'
 
-import type { User } from '../types/user'
+import type { LoginUser } from '../types/user'
 
 import bgLogin from '../assets/background-login.jpeg'
+import { loginUser } from '../api/users'
+import { useAuth } from '../hooks'
 
 const Login = (): JSX.Element => {
   const navigate = useNavigate()
-  const { login } = useAuth()
+  const { loginSession } = useAuth()
 
   const [formData, setFormData] = useState({
     email: '',
@@ -28,17 +27,32 @@ const Login = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
-    const user: User = validateUser(formData.email, formData.password)
-    if (user.id !== 0) {
-      login({
-        id: user.id,
-        username: user.username,
-        email: user.email
-      })
-      navigate('/')
-    } else {
-      alert('Invalid email or password')
+    handleLoginUser({
+      email: formData.email,
+      password: formData.password
+    }).then(() => {
+      setTimeout(() => {
+        navigate('/')
+      }, 1300)
     }
+    ).catch(console.error)
+  }
+
+  const handleLoginUser = async (user: LoginUser): Promise<void> => {
+    await loginUser(user)
+      .then((data) => {
+        if (data.id !== 0) {
+          loginSession({
+            id: data.id,
+            username: data.username,
+            email: data.email,
+            photo: data.photo
+          })
+        } else {
+          alert('Invalid email or password')
+        }
+      })
+      .catch(console.error)
   }
 
   const {

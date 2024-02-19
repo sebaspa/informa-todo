@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
-import { useAuth } from '../context'
 
 import type { Task } from '../types/task'
 
 import { createTask, deleteTask, getTasksByUser, updateTask } from '../api/tasks'
 
 import { InputText } from '../components/Form'
+import { useAuth } from '../hooks'
 
 const Home = (): JSX.Element => {
-  const { user } = useAuth()
+  const { user, logoutSession } = useAuth()
+  console.log('user', user)
   const [tasks, setTasks] = useState<Task[]>([])
   const [formData, setFormData] = useState<Task>({
     id: 0,
@@ -20,7 +21,8 @@ const Home = (): JSX.Element => {
 
   useEffect(() => {
     const fetchTasks = async (): Promise<void> => {
-      if (user === null) return
+      console.log('Fetchtasks')
+      if (user === undefined || user === null) return
       try {
         const tasks = await getTasksByUser(user.id)
         setTasks(tasks)
@@ -30,7 +32,7 @@ const Home = (): JSX.Element => {
     }
 
     fetchTasks().catch(console.error)
-  }, [])
+  }, [user])
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target
@@ -50,7 +52,7 @@ const Home = (): JSX.Element => {
   }
 
   const addTask = async (): Promise<void> => {
-    if (user === null) return
+    if (user === null || user === undefined) return
     const newTask = await createTask({
       ...formData,
       id: crypto.randomUUID(),
@@ -91,9 +93,14 @@ const Home = (): JSX.Element => {
     })
   }
 
+  const handleLogout = (): void => {
+    logoutSession()
+  }
+
   return (
     <div className='container mx-auto px-4'>
-      <h1>{user?.username}</h1>
+      <h1>Hola {user?.username}</h1>
+      <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' onClick={handleLogout}>Log out</button>
       <form className='mb-4' onSubmit={handleSubmit}>
         <InputText
           type="text"
