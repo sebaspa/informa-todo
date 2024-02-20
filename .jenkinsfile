@@ -1,0 +1,35 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Instalar dependencias') {
+      steps {
+        sh 'npm install'
+      }
+    }
+
+    stage('Construcción') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+    
+    stage('Ejecución de la API') {
+      steps {
+        sh 'npm run api'
+      }
+    }
+
+    stage('Sincronización del navegador') {
+      steps {
+        sh 'npm run dev'
+      }
+    }
+
+    stage('Validación de la sintaxis') {
+      steps {
+        sh 'npm run lint'
+      }
+    }
+  }
+}
