@@ -1,30 +1,53 @@
-# React + TypeScript + Vite
+# Todo App en React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este es un proyecto de una simple aplicación de lista de tareas (Todo App) desarrollada en React.
 
-Currently, two official plugins are available:
+## Autor
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [@sebaspa](https://github.com/sebaspa)
 
-## Expanding the ESLint configuration
+## Requisitos previos
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Antes de ejecutar la aplicación, asegúrate de tener los siguientes archivos configurados:
 
-- Configure the top-level `parserOptions` property like this:
+- `db.json`: Este archivo debe tener una estructura similar al archivo `db.local.json`. Se utiliza para simular una API REST con el paquete `json-server`.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- `.env`: Este archivo debe tener una estructura similar al archivo `.env.local`. Contiene variables de entorno necesarias para la configuración del proyecto.
+
+## Ejecutar la aplicación
+
+Para ejecutar la aplicación, sigue estos pasos:
+
+1. **Ejecutar la API**: Abre una terminal en el directorio del proyecto y ejecuta el siguiente comando para iniciar la API:
+
+```bash
+npm run api
 ```
+Esto iniciará la API utilizando `json-server`, que servirá como backend simulado para la aplicación.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. **Iniciar la aplicación**: En otra terminal en el mismo directorio del proyecto, ejecuta el siguiente comando para iniciar la aplicación:
+
+```bash
+npm run dev
+```
+Esto iniciará la aplicación en modo de desarrollo.
+
+3. **Acceder a la aplicación**: Abre tu navegador web y visita `http://localhost:5173` para ver y utilizar la aplicación.
+
+4. **Iniciar sesión**: Inicia sesion con los usuarios y claves que están en el archivo: `db.json`.
+
+¡Eso es todo! Ahora puedes comenzar a agregar y gestionar tus tareas en la aplicación de lista de tareas.
+
+## 🔗 Links
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sebaspa/)
+
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/sebaspastudio)
+
+
+## Soporte
+
+Para cualquier información se pueden comunicar a mi correo `sebaspa0107@gmail.com`.
+
+
+## 🚀 Acerca de mi
+Soy un desarrollador front end.
